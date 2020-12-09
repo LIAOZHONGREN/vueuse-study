@@ -8,7 +8,6 @@ import {
     asyncComputed, useAsyncState, useRefHistory, biSyncRef, controlledComputed, extendRef, makeDestructurable, syncRef, useDebounce, useDebounceFn,useThrottle,useThrottleFn,
     
 } from '@vueuse/core'
-import {} from '@vueuse'
 import { useGlobalState } from './useGlobalState'
 
 const UseVModel = defineComponent({
@@ -21,7 +20,7 @@ const UseVModel = defineComponent({
         }
         return () => (
             <div>
-                <span>测试使用useVModel(报错)</span>
+                <span>测试使用useVModel</span>
                 <div>data:{data.value}</div>
                 <button onClick={onclick}>改变data</button>
             </div>
