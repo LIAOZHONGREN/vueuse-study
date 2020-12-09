@@ -8,6 +8,7 @@
 -->
 * 对vueuse的学习
 * 使用 npm run dev
+*<a href="https://liaozhongren.github.io/vueuse-study/show/index.html">演示地址</a>
 * 演示截图
  <img alt="演示截图" src="./screenshot/1.png"/>
  <img alt="演示截图" src="./screenshot/2.png"/>
