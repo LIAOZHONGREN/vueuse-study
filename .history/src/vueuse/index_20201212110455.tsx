@@ -14,7 +14,7 @@ const UseVModel = defineComponent({
     setup(props, { emit }) {
         const data = useVModel(props, 'data', emit)
         function onclick() {
-            data.value = ` ${Math.ceil(Math.random() * 100)} `//相当于emit('update:data', 'value')
+            data.value = ` ${Math.ceil(Math.random() * 100)} `
         }
         return () => (
             <div>
@@ -1099,8 +1099,7 @@ export default defineComponent({
         })
         return () => (
             <div>
-                <p style={{ margin: '3px 0' }}>{`父组件的dataRef:${dataRef.value}`}</p>
-                <UseVModel v-model={[dataRef.value, 'data', ['trim']]} /><br />
+                <UseVModel v-model={[dataRef.value, 'data',['trim']]} /><br />
                 <DebouncedWatch /><br />
                 <IgnorableWatch /><br />
                 <PausableWatch /><br />

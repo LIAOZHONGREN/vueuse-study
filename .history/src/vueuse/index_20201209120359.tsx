@@ -5,7 +5,7 @@ import {
     useCounter, useLocalStorage, useSessionStorage, useStorage, useToggle, onClickOutside, onStartTyping, useBattery, useDeviceLight, useDeviceMotion, useDeviceOrientation, useDevicePixelRatio, useDocumentVisibility, useElementVisibility, useGeolocation, useIdle, useIntersectionObserver, useMouse, useMouseInElement, useNetwork, useOnline, usePageLeave, useParallax, useWindowScroll, useWindowSize,
     useBrowserLocation, useClipboard, useCssVar, useElementSize, useEventListener, useFavicon, useFullscreen, useMediaQuery, useMutationObserver, usePermission, usePreferredLanguages, useResizeObserver, useTitle,
     useRafFn, useTimestamp, useTransition, TransitionPresets, useInterval, useIntervalFn, useTimeout, useTimeoutFn,
-    asyncComputed, useAsyncState, useRefHistory, biSyncRef, controlledComputed, extendRef, makeDestructurable, syncRef, useDebounce, useDebounceFn, useThrottle, useThrottleFn,
+    asyncComputed, useAsyncState, useRefHistory, biSyncRef, controlledComputed, extendRef, makeDestructurable, syncRef, useDebounce, useDebounceFn,useThrottle,useThrottleFn,
 } from '@vueuse/core'
 import { useGlobalState } from './useGlobalState'
 
@@ -14,7 +14,8 @@ const UseVModel = defineComponent({
     setup(props, { emit }) {
         const data = useVModel(props, 'data', emit)
         function onclick() {
-            data.value = ` ${Math.ceil(Math.random() * 100)} `//相当于emit('update:data', 'value')
+            data.value = 'foo'
+            console.log(data.value)
         }
         return () => (
             <div>
@@ -1045,7 +1046,7 @@ const UseDebounceFn = defineComponent({
         return () => (
             <div>
                 <span>useDebounceFn:把函数包装成具有防抖功能函数</span><br />
-                <span>count:{valueRef.value}</span><br />
+                <span>count:{valueRef.value}</span><br/>
                 <button onClick={clickDebFn}>防抖式+1</button>
             </div>
         )
@@ -1073,7 +1074,7 @@ const UseThrottleFn = defineComponent({
         return () => (
             <div>
                 <span>useThrottleFn:把函数包装成具有节流功能的函数</span><br />
-                <span>count:{valueRef.value}</span><br />
+                <span>count:{valueRef.value}</span><br/>
                 <button onClick={clickThrFn}>节流式+1</button>
             </div>
         )
@@ -1089,18 +1090,21 @@ export default defineComponent({
         UseElementVisibility, UseGeolocation, UseIdle, UseIntersectionObserver, UseMouse, UseMouseInElement, UseNetwork, UseOnline, UsePageLeave,
         UseParallax, UseWindowScroll, UseWindowSize, UseBrowserLocation, UseClipboard, UseCssVar, UseElementSize, UseEventListener, UseFavicon, UseFullscreen,
         UseMediaQuery, UseMutationObserver, UsePermission, UsePreferredLanguages, UseResizeObserver, UseTitle, UseRafFn, UseTimestamp, UseTransition, UseInterval, UseIntervalFn,
-        UseTimeout, UseTimeoutFn, AsyncComputed, UseAsyncState, UseRefHistory, BiSyncRef, ControlledComputed, ExtendRef, MakeDestructurable, SyncRef, UseDebounce, UseDebounceFn, UseThrottle,
+        UseTimeout, UseTimeoutFn, AsyncComputed, UseAsyncState, UseRefHistory, BiSyncRef, ControlledComputed, ExtendRef, MakeDestructurable, SyncRef, UseDebounce,UseDebounceFn,UseThrottle,
         UseThrottleFn
     },
     setup() {
         const dataRef = ref('ooo')
         watch(dataRef, (n, o) => {
-            console.log(`dataRef:${n}`)
+            console.log(n)
         })
-        return () => (
+        return { dataRef }
+    },
+    render() {
+        const { dataRef } = this
+        return (
             <div>
-                <p style={{ margin: '3px 0' }}>{`父组件的dataRef:${dataRef.value}`}</p>
-                <UseVModel v-model={[dataRef.value, 'data', ['trim']]} /><br />
+                <UseVModel data={dataRef} /><br />
                 <DebouncedWatch /><br />
                 <IgnorableWatch /><br />
                 <PausableWatch /><br />
@@ -1160,11 +1164,11 @@ export default defineComponent({
                 <ExtendRef /><br />
                 <MakeDestructurable /><br />
                 <SyncRef /><br />
-                <UseDebounce /><br />
-                <UseDebounceFn /><br />
-                <UseThrottle /><br />
-                <UseThrottleFn />
+                <UseDebounce /><br/>
+                <UseDebounceFn/><br/>
+                <UseThrottle/><br/>
+                <UseThrottleFn/>
             </div>
         )
-    },
+    }
 })
